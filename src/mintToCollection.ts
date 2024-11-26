@@ -69,3 +69,14 @@ const mintToCollection = async () => {
 };
 
 mintToCollection();
+
+/*
+% ts-node src/<THIS_FILE>
+
+payer => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
+leafOwner => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
+merkleTree => D6cTtVWBFapNQxW4tu4FGbXBz2Bycqyya8gtj8KJqMui
+collectionMint => CNKbk92ugTzDnqZNNttXGWbNmCmHptxctz8BuJYYp9Tx
+signature => 3b763DEtvBzRR5mShbS25yQVoVuUsDCGmSLUvS6C3TCeGQkhyAPVcNuCy2HuoUNphKfieXAyXupBYJipaqxMe48V
+result => { context: { slot: 270781697 }, value: { err: null } }
+*/

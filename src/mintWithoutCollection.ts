@@ -1,10 +1,13 @@
+// Docs: https://developers.metaplex.com/bubblegum/mint-cnfts#minting-without-a-collection
+
+// Lib
 import * as dotenv from 'dotenv';
 import * as bs58 from 'bs58';
 
 // Metaplex
 import { createUmi } from '@metaplex-foundation/umi-bundle-defaults';
-import { generateSigner, keypairIdentity, none, publicKey } from '@metaplex-foundation/umi';
-import { createTree, mintV1 } from '@metaplex-foundation/mpl-bubblegum';
+import { keypairIdentity, none, publicKey } from '@metaplex-foundation/umi';
+import { mintV1 } from '@metaplex-foundation/mpl-bubblegum';
 
 const mintWithoutCollection = async () => {
   // ----------------------------------------------------
@@ -19,7 +22,6 @@ const mintWithoutCollection = async () => {
   // Set Payer
   const payerSecretKey = process.env.PAYER_SECRET_KEY;
   if (!payerSecretKey) throw new Error('payerSecretKey not found.');
-  // const decodeSecretKey = bs58.decode(payerSecretKey);
   const secretKeyUInt8Array = new Uint8Array(JSON.parse(payerSecretKey));
   const payerKeypair =
     umi.eddsa.createKeypairFromSecretKey(secretKeyUInt8Array);
@@ -28,21 +30,12 @@ const mintWithoutCollection = async () => {
   // ----------------------------------------------------
   //  Minting without a Collection
   // ----------------------------------------------------
-  // Create merkle tree
-  const merkleTree = generateSigner(umi);
-  const builder = await createTree(umi, {
-    merkleTree,
-    maxDepth: 3,
-    maxBufferSize: 8,
-    // maxDepth: 14,
-    // maxBufferSize: 64,
-  });
-  console.log('builder ------> ', builder)
+  // Replace to your Merkle Tree.
+  const merkleTree = publicKey('81WgE6NEKLT71YQpySphUE59oicJX3QRmRNZmijNvmzq');
 
-  // const merkleTree = publicKey('81WgE6NEKLT71YQpySphUE59oicJX3QRmRNZmijNvmzq');
   const result = await mintV1(umi, {
     leafOwner: payerKeypair.publicKey,
-    merkleTree: merkleTree.publicKey,
+    merkleTree,
     metadata: {
       name: 'cNFT w/o Collection #2',
       uri: 'https://arweave.net/fuyXdgQul3e-0COSO2XUgTv9JbUIDvF-as86TWHtlgM',
@@ -61,3 +54,12 @@ const mintWithoutCollection = async () => {
 };
 
 mintWithoutCollection();
+
+/*
+% ts-node src/<THIS_FILE>
+
+payer => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
+leafOwner => HXtBm8XZbxaTt41uqaKhwUAa6Z1aPyvJdsZVENiWsetg
+merkleTree => B9bq2sirvRtgDfZdaTqPso3h6ghfWjXfx77CHdWKHEqT
+signature => GRWaP7NutXcrnH9QZwZT5XP5ksU3jUs2pRaREbjx1SFoxMtgPZLkq4SF58MFEmrePaTD1koofhcLJNKbcmSgKjF
+*/

@@ -1,12 +1,10 @@
 {
-  "name": "mint-cnft",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
   "scripts": {
-    "mintToCollection": "ts-node src/mintToCollection.ts",
-    "mintWithoutCollection": "ts-node src/mintWithoutCollection.ts",
-    "transfer": "ts-node src/transfer.ts"
+    "createTree": "ts-node src/createMerkleTree.ts",
+    "mintToCoolection": "ts-node src/mintToCollection.ts",
+    "mintWithoutCollection": "ts-node src/mintToCollection.tsts-node src/mintWithoutCollection.ts",
+    "fetchMerkleTree": "ts-node src/fetchMerkleTreeForCnft.ts",
+    "transfer": "ts-node src/transferringCompressedNfts.ts"
   },
   "dependencies": {
     "@metaplex-foundation/digital-asset-standard-api": "^1.0.3",
